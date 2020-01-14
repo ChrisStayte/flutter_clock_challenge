@@ -39,13 +39,12 @@ class _DigitalClockState extends State<DigitalClock> {
     return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
 
-  Color _getTimeInColor() {
-    String hour = DateTime.now().hour.toString();
-    String min = DateTime.now().minute.toString();
-    String seconds = DateTime.now().second.toString();
-    String color = '#FF$hour$min$seconds';
-    print(color);
-    return _hexToColor(color);
+  String _getTimeHex() {
+    final hour =
+        DateFormat(widget.model.is24HourFormat ? 'HH' : 'hh').format(_dateTime);
+    final minute = DateFormat('mm').format(_dateTime);
+    final second = DateFormat('ss').format(_dateTime);
+    return "#$hour$minute$second";
   }
 
   void _updateModel() {
@@ -54,13 +53,8 @@ class _DigitalClockState extends State<DigitalClock> {
 
   @override
   Widget build(BuildContext context) {
-    final hour =
-        DateFormat(widget.model.is24HourFormat ? 'HH' : 'hh').format(_dateTime);
-    final minute = DateFormat('mm').format(_dateTime);
-    final second = DateFormat('ss').format(_dateTime);
-    final fontSize = MediaQuery.of(context).size.width / 9;
-    final backgroundColorHex = "#$hour$minute$second";
-    final backgroundColor = _hexToColor(backgroundColorHex);
+    final fontSize = MediaQuery.of(context).size.width / 7;
+    final backgroundColor = _hexToColor(_getTimeHex());
 
     return Scaffold(
       body: Container(
@@ -69,20 +63,14 @@ class _DigitalClockState extends State<DigitalClock> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Text(
-              //   "$hour:$minute",
-              //   style: TextStyle(
-              //       color: Colors.white,
-              //       fontSize: 85.0,
-              //       fontWeight: FontWeight.w700),
-              // ),
-              //SizedBox(height: 25.0),
               Text(
-                backgroundColorHex,
+                _getTimeHex(),
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: fontSize,
-                    fontWeight: FontWeight.w400),
+                  color: Colors.white,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w300,
+                  fontFamily: "Lato",
+                ),
               )
             ],
           ),
