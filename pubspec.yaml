@@ -41,11 +41,8 @@ flutter:
   fonts:
     - family: Lato
       fonts:
-        - asset: third_party/Lato-Regular.ttf
         - asset: third_party/Lato-Light.ttf
           weight: 300
-        - asset: third_party/Lato-Thin.ttf
-          weight: 100
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
